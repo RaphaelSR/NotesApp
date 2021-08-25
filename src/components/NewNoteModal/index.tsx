@@ -35,6 +35,7 @@ export function NewNoteModal({
     onCreateNewNote(newNote);
     setTitle("");
     setDescription("");
+    onRequestClose();
   }
   return (
     <Modal
