@@ -7,7 +7,7 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 3rem;
+  margin-top: 5.5rem;
   margin-left: 3rem;
   margin-right: 3rem;
   
