@@ -7,9 +7,10 @@ export const Container = styled.div`
 export const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding-top: 1rem;
+  padding-top: 3rem;
   margin-left: 3rem;
   margin-right: 3rem;
+  
 `;
 
 export const CloseButton = styled.button`
