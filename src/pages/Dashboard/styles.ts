@@ -11,7 +11,7 @@ export const Content = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  background-color: ${lighten(0.09, "#000000")};
+  background-color: ${lighten(0.02, "#000000")};
   display: flex;
   flex-direction: column;
 `;
@@ -52,16 +52,19 @@ export const Header = styled.div`
   }
 `;
 
-
 export const NotesList = styled.div`
   flex: 1;
   overflow: visible;
   padding-bottom: 2rem;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 1px;
   list-style: none;
+
+  @media (max-width: 1800px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   @media (max-width: 1280px) {
     grid-template-columns: repeat(3, 1fr);
@@ -84,6 +87,7 @@ export const NoteBackground = styled.div`
   width: 20rem;
   margin-left: 2.5rem;
   margin-top: 2.25rem;
+  margin-right: 1.2rem;
 `;
 
 export const NoteData = styled.div`

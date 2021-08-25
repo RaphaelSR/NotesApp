@@ -1,32 +1,25 @@
-import { useState, FormEvent, useEffect } from "react";
+import { useState, FormEvent } from "react";
 import {
   Container,
-  AddNotes,
   NotesList,
   CloseButton,
   NoteBackground,
   NoteData,
   Content,
   Header,
+  AddNotes,
 } from "./styles";
-import { Note, HeaderProps } from "../../types";
+import { HeaderProps } from "../../types";
 
-export function Dashboard({onOpenNewNoteModal}: HeaderProps) {
-  const [notes, setNotes] = useState<Note[]>([]);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [counter, setCounter] = useState(0);
-
-  useEffect(() => {
-    if (localStorage.getItem("Notes") === null) {
-      localStorage.setItem("Notes", JSON.stringify(notes));
-    }
-    const storagedNotes = JSON.parse(
-      localStorage.getItem("@Noteapp:note") || "[{}]"
-    );
-    setNotes(storagedNotes);
-    setCounter(storagedNotes.length);
-  }, []);
+export function Dashboard({
+  onOpenNewNoteModal,
+  onCreateNewNote,
+  onRemoveNote,
+  onCounterValue,
+  onNotesValue,
+}: HeaderProps) {
+  const [title, setTitle] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
 
   function handleCreateNewNote(event: FormEvent) {
     event.preventDefault();
@@ -36,37 +29,25 @@ export function Dashboard({onOpenNewNoteModal}: HeaderProps) {
       title,
       description,
     };
-    setNotes((oldNotes) => [...oldNotes, newNote]);
-    const updatedNotes = [...notes];
-    if (updatedNotes) {
-      localStorage.setItem("@Noteapp:note", JSON.stringify(updatedNotes));
-    }
-    setCounter(counter + 1);
+    onCreateNewNote(newNote);
     setTitle("");
     setDescription("");
-  }
-
-  function handleRemoveNote(id: number) {
-    const filteredNote = notes.filter((note) => note.id !== id);
-    localStorage.setItem("@Noteapp:note", JSON.stringify(filteredNote));
-    setNotes(filteredNote);
-    setCounter(counter - 1);
   }
 
   return (
     <Container>
       <Content>
-      <Header>
-        <h1>Notes ({counter})</h1>
-        <button onClick={onOpenNewNoteModal} type="button">
-          Add note
-        </button>
-      </Header>
+        <Header>
+          <h1>Notes ({onCounterValue})</h1>
+          <button onClick={onOpenNewNoteModal} type="button">
+            Add note
+          </button>
+        </Header>
         <NotesList>
-          {notes.map((note) => {
+          {onNotesValue.map((note) => {
             return (
               <NoteBackground key={note.id}>
-                <CloseButton onClick={() => handleRemoveNote(note.id)}>
+                <CloseButton onClick={() => onRemoveNote(note.id)}>
                   X
                 </CloseButton>
                 <NoteData>
